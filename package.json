@@ -7,7 +7,10 @@
     "start": "ts-node src/game-runner.ts",
     "test": "jest"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@types/seedrandom": "^2.4.28",
+    "seedrandom": "^3.0.5"
+  },
   "devDependencies": {
     "@types/jest": "^25.1.3",
     "@types/node": "^13.7.4",
