@@ -20,7 +20,8 @@ export class GameRunner {
             game.roll(Math.floor(Math.random() * 6) + 1);
 
             if (Math.floor(Math.random() * 10) == 7) {
-                thereIsAWinner = !game.wrongAnswer();
+                game.wrongAnswer();
+                thereIsAWinner = false;
             } else {
                 thereIsAWinner = !game.wasCorrectlyAnswered();
             }
