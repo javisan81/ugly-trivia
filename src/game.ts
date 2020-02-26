@@ -109,7 +109,7 @@ export class Game {
         return 'Rock';
     }
 
-    private didPlayerWin(): boolean {
+    private didPlayerNotWin(): boolean {
         return !(this.purses[this.currentPlayer] == 6)
     }
 
@@ -131,12 +131,12 @@ export class Game {
               console.log(this.players[this.currentPlayer] + " now has " +
               this.purses[this.currentPlayer] + " Gold Coins.");
 
-              var winner = this.didPlayerWin();
+              var playerDidntWin = this.didPlayerNotWin();
               this.currentPlayer += 1;
               if (this.currentPlayer == this.players.length)
                 this.currentPlayer = 0;
 
-              return winner;
+              return playerDidntWin;
             } else {
               this.currentPlayer += 1;
               if (this.currentPlayer == this.players.length)
@@ -153,13 +153,13 @@ export class Game {
             console.log(this.players[this.currentPlayer] + " now has " +
                 this.purses[this.currentPlayer] + " Gold Coins.");
 
-            var winner = this.didPlayerWin();
+            var playerNotWin = this.didPlayerNotWin();
 
             this.currentPlayer += 1;
             if (this.currentPlayer == this.players.length)
                 this.currentPlayer = 0;
 
-            return winner;
+            return playerNotWin;
           }
     }
 
