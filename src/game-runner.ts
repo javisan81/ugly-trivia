@@ -15,18 +15,17 @@ export class GameRunner {
     }
 
     private static play(game: Game) {
-        let notAWinner;
+        let thereIsAWinner;
         do {
-
             game.roll(Math.floor(Math.random() * 6) + 1);
 
             if (Math.floor(Math.random() * 10) == 7) {
-                notAWinner = game.wrongAnswer();
+                thereIsAWinner = !game.wrongAnswer();
             } else {
-                notAWinner = game.wasCorrectlyAnswered();
+                thereIsAWinner = !game.wasCorrectlyAnswered();
             }
 
-        } while (notAWinner);
+        } while (!thereIsAWinner);
     }
 }
 
