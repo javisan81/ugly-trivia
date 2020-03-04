@@ -42,12 +42,14 @@ export class Game {
         return this.players.length;
     }
 
-    public roll(roll: number) {
+    public playerPlayTurn(roll: number) {
         this.printCurrentMovementOfPlayer(roll);
         if (this.inPenaltyBox[this.currentPlayer]) {
-            this.playerTryToExitPenaltyBox(roll);
+            this.playerTryToExitPenaltyBoxAndAskQuestion(roll);
         } else {
-            this.playerMoveAndPrintCategoryAndAskQuestion(roll);
+            this.playerMove(roll);
+            console.log('The category is ' + this.currentCategory());
+            this.boardShowsQuestion();
         }
     }
 
@@ -55,13 +57,6 @@ export class Game {
         console.log(this.players[this.currentPlayer] + ' is the current player');
         console.log('They have rolled a ' + roll);
     }
-
-    private playerMoveAndPrintCategoryAndAskQuestion(roll: number) {
-        this.playerMove(roll);
-        console.log('The category is ' + this.currentCategory());
-        this.askQuestion();
-    }
-
     private playerMove(roll: number) {
         this.places[this.currentPlayer] = this.places[this.currentPlayer] + roll;
         if (this.places[this.currentPlayer] > 11) {
@@ -70,12 +65,14 @@ export class Game {
         console.log(this.players[this.currentPlayer] + '\'s new location is ' + this.places[this.currentPlayer]);
     }
 
-    private playerTryToExitPenaltyBox(roll: number) {
+    private playerTryToExitPenaltyBoxAndAskQuestion(roll: number) {
         if (this.playerCanExitPenaltyBox(roll)) {
             this.isGettingOutOfPenaltyBox = true;
 
             console.log(this.players[this.currentPlayer] + ' is getting out of the penalty box');
-            this.playerMoveAndPrintCategoryAndAskQuestion(roll);
+            this.playerMove(roll);
+            console.log('The category is ' + this.currentCategory());
+            this.boardShowsQuestion();
         } else {
             console.log(this.players[this.currentPlayer] + ' is not getting out of the penalty box');
             this.isGettingOutOfPenaltyBox = false;
@@ -86,7 +83,7 @@ export class Game {
         return roll % 2 != 0;
     }
 
-    private askQuestion(): void {
+    private boardShowsQuestion(): void {
         if (this.currentCategory() == 'Pop')
             console.log(this.popQuestions.shift());
         if (this.currentCategory() == 'Science')
