@@ -71,7 +71,7 @@ export class Game {
     }
 
     private playerTryToExitPenaltyBox(roll: number) {
-        if (roll % 2 != 0) {
+        if (this.playerCanExitPenaltyBox(roll)) {
             this.isGettingOutOfPenaltyBox = true;
 
             console.log(this.players[this.currentPlayer] + ' is getting out of the penalty box');
@@ -80,6 +80,10 @@ export class Game {
             console.log(this.players[this.currentPlayer] + ' is not getting out of the penalty box');
             this.isGettingOutOfPenaltyBox = false;
         }
+    }
+
+    private playerCanExitPenaltyBox(roll: number) {
+        return roll % 2 != 0;
     }
 
     private askQuestion(): void {
