@@ -123,7 +123,7 @@ export class Game {
             this.currentPlayer = 0;
     }
 
-    public wasCorrectlyAnswered(): boolean {
+    public playerDidntWin(): boolean {
         if (this.inPenaltyBox[this.currentPlayer]) {
             if (this.isGettingOutOfPenaltyBox) {
               console.log('Answer was correct!!!!');
