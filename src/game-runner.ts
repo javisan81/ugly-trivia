@@ -17,16 +17,24 @@ export class GameRunner {
     private static play(game: Game) {
         let noWinner;
         do {
-            game.roll(Math.floor(Math.random() * 6) + 1);
+            game.roll(this.rollDice());
 
-            if (Math.floor(Math.random() * 10) == 7) {
+            if (this.hasPlayerCorrectlyAnswer()) {
+                noWinner = game.playerDidntWin();
+            } else {
                 game.wrongAnswer();
                 noWinner = true;
-            } else {
-                noWinner = game.playerDidntWin();
             }
 
         } while (noWinner);
+    }
+
+    private static rollDice() {
+        return Math.floor(Math.random() * 6) + 1;
+    }
+
+    private static hasPlayerCorrectlyAnswer() {
+        return Math.floor(Math.random() * 10) != 7;
     }
 }
 
