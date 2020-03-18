@@ -43,7 +43,7 @@ export class Game {
     }
 
     public playerPlayTurn() {
-        const rollDice = Game.playerRollDice();
+        const rollDice = Game.rollDice();
         this.printCurrentMovementOfPlayer(rollDice);
         if (this.inPenaltyBox[this.currentPlayer]) {
             this.playerTryToExitPenaltyBoxAndAskQuestion(rollDice);
@@ -54,8 +54,12 @@ export class Game {
         }
     }
 
-    private static playerRollDice(): number {
+    private static rollDice(): number {
         return Math.floor(Math.random() * 6) + 1;
+    }
+
+    public hasPlayerCorrectlyAnswer() {
+        return Math.floor(Math.random() * 10) != 7;
     }
 
     private printCurrentMovementOfPlayer(roll: number) {

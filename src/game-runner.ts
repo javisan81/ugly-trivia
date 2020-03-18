@@ -19,7 +19,7 @@ export class GameRunner {
         do {
             game.playerPlayTurn();
 
-            if (this.hasPlayerCorrectlyAnswer()) {
+            if (game.hasPlayerCorrectlyAnswer()) {
                 noWinner = game.playerDidntWin();
             } else {
                 game.wrongAnswer();
@@ -27,10 +27,6 @@ export class GameRunner {
             }
 
         } while (noWinner);
-    }
-
-    private static hasPlayerCorrectlyAnswer() {
-        return Math.floor(Math.random() * 10) != 7;
     }
 }
 
