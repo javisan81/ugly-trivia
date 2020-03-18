@@ -4,7 +4,6 @@ enum Category {
     Sports = 'Sports',
     Science = 'Science',
     Pop = 'Pop'
-
 }
 
 export class Game {
@@ -113,11 +112,11 @@ export class Game {
             console.log(this.rockQuestions.shift());
     }
 
-    private currentCategory(): string {
+    private currentCategory(): Category {
         const positionToCategory = [
-            {category: 'Pop', positions: [0, 4, 8]},
-            {category: 'Science', positions: [1, 5, 9]},
-            {category: 'Sports', positions: [2, 6, 10]}
+            {category: Category.Pop, positions: [0, 4, 8]},
+            {category: Category.Science, positions: [1, 5, 9]},
+            {category: Category.Sports, positions: [2, 6, 10]}
         ];
 
         const currentPosition = this.places[this.currentPlayer];
@@ -125,7 +124,7 @@ export class Game {
             categoryForPositions.positions.includes(currentPosition)
         );
 
-        return foundCategory ? foundCategory.category : 'Rock';
+        return foundCategory ? foundCategory.category : Category.Rock;
     }
 
     private didPlayerNotWin(): boolean {
