@@ -104,25 +104,18 @@ export class Game {
     }
 
     private currentCategory(): string {
-        if (this.places[this.currentPlayer] == 0)
-            return 'Pop';
-        if (this.places[this.currentPlayer] == 4)
-            return 'Pop';
-        if (this.places[this.currentPlayer] == 8)
-            return 'Pop';
-        if (this.places[this.currentPlayer] == 1)
-            return 'Science';
-        if (this.places[this.currentPlayer] == 5)
-            return 'Science';
-        if (this.places[this.currentPlayer] == 9)
-            return 'Science';
-        if (this.places[this.currentPlayer] == 2)
-            return 'Sports';
-        if (this.places[this.currentPlayer] == 6)
-            return 'Sports';
-        if (this.places[this.currentPlayer] == 10)
-            return 'Sports';
-        return 'Rock';
+        const positionToCategory = [
+            {category: 'Pop', positions: [0, 4, 8]},
+            {category: 'Science', positions: [1, 5, 9]},
+            {category: 'Sports', positions: [2, 6, 10]}
+        ];
+
+        const currentPosition = this.places[this.currentPlayer];
+        const foundCategory = positionToCategory.find((categoryForPositions) =>
+            categoryForPositions.positions.includes(currentPosition)
+        );
+
+        return foundCategory ? foundCategory.category : 'Rock';
     }
 
     private didPlayerNotWin(): boolean {
