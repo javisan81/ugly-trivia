@@ -1,3 +1,12 @@
+
+enum Category {
+    Rock = 'Rock',
+    Sports = 'Sports',
+    Science = 'Science',
+    Pop = 'Pop'
+
+}
+
 export class Game {
 
     private players: Array<string> = [];
@@ -92,14 +101,15 @@ export class Game {
         return roll % 2 != 0;
     }
 
+
     private boardShowsQuestion(): void {
-        if (this.currentCategory() == 'Pop')
+        if (this.currentCategory() == Category.Pop)
             console.log(this.popQuestions.shift());
-        if (this.currentCategory() == 'Science')
+        if (this.currentCategory() == Category.Science)
             console.log(this.scienceQuestions.shift());
-        if (this.currentCategory() == 'Sports')
+        if (this.currentCategory() == Category.Sports)
             console.log(this.sportsQuestions.shift());
-        if (this.currentCategory() == 'Rock')
+        if (this.currentCategory() == Category.Rock)
             console.log(this.rockQuestions.shift());
     }
 
