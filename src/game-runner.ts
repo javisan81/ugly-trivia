@@ -17,7 +17,7 @@ export class GameRunner {
     private static play(game: Game) {
         let noWinner;
         do {
-            game.playerPlayTurn(this.rollDice());
+            game.playerPlayTurn();
 
             if (this.hasPlayerCorrectlyAnswer()) {
                 noWinner = game.playerDidntWin();
@@ -27,10 +27,6 @@ export class GameRunner {
             }
 
         } while (noWinner);
-    }
-
-    private static rollDice() {
-        return Math.floor(Math.random() * 6) + 1;
     }
 
     private static hasPlayerCorrectlyAnswer() {

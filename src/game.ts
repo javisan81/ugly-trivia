@@ -42,15 +42,20 @@ export class Game {
         return this.players.length;
     }
 
-    public playerPlayTurn(roll: number) {
-        this.printCurrentMovementOfPlayer(roll);
+    public playerPlayTurn() {
+        const rollDice = Game.playerRollDice();
+        this.printCurrentMovementOfPlayer(rollDice);
         if (this.inPenaltyBox[this.currentPlayer]) {
-            this.playerTryToExitPenaltyBoxAndAskQuestion(roll);
+            this.playerTryToExitPenaltyBoxAndAskQuestion(rollDice);
         } else {
-            this.playerMove(roll);
+            this.playerMove(rollDice);
             console.log('The category is ' + this.currentCategory());
             this.boardShowsQuestion();
         }
+    }
+
+    private static playerRollDice(): number {
+        return Math.floor(Math.random() * 6) + 1;
     }
 
     private printCurrentMovementOfPlayer(roll: number) {
