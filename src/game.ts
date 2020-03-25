@@ -99,23 +99,22 @@ export class Game {
     private playerCanExitPenaltyBox(roll: number) {
         return roll % 2 != 0;
     }
-    private positionToCategory = [
+    private categories = [
         {category: Category.Pop, positions: [0, 4, 8], questions: this.popQuestions},
         {category: Category.Science, positions: [1, 5, 9], questions: this.scienceQuestions},
         {category: Category.Sports, positions: [2, 6, 10], questions: this.sportsQuestions},
         {category: Category.Rock, positions: [], questions: this.rockQuestions},
     ];
     private boardShowsQuestion(): void {
-        const currentCategory = this.currentCategory();
-        const foundPositionToCategory = this.positionToCategory
-            .find((c) => c.category === currentCategory);
+        const foundPositionToCategory = this.categories
+            .find((c) => c.category === this.currentCategory());
         const questions = foundPositionToCategory ? foundPositionToCategory.questions : this.rockQuestions;
         console.log(questions.shift());
     }
 
     private currentCategory(): Category {
         const currentPosition = this.places[this.currentPlayer];
-        const foundCategory = this.positionToCategory.find((categoryForPositions) =>
+        const foundCategory = this.categories.find((categoryForPositions) =>
             categoryForPositions.positions.includes(currentPosition)
         );
 
