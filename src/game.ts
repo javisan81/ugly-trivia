@@ -105,11 +105,9 @@ export class Game {
         {category: Category.Sports, positions: [2, 6, 10], questions: this.sportsQuestions},
         {category: Category.Rock, positions: [], questions: this.rockQuestions},
     ];
+
     private boardShowsQuestion(): void {
-        const foundPositionToCategory = this.categoriesQuestionsInTheBoard
-            .find((c) => c.category === this.currentCategory());
-        const questions = foundPositionToCategory ? foundPositionToCategory.questions : this.rockQuestions;
-        console.log(questions.shift());
+        console.log(this.currentCategoryInTheBoard().questions.shift());
     }
 
     private currentCategory(): Category {
