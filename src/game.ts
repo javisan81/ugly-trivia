@@ -113,12 +113,14 @@ export class Game {
     }
 
     private currentCategory(): Category {
-        const currentPosition = this.places[this.currentPlayer];
-        const foundCategory = this.categoriesQuestionsInTheBoard.find((categoryForPositions) =>
-            categoryForPositions.positions.includes(currentPosition)
-        );
+        return this.currentCategoryInTheBoard().category;
+    }
 
-        return foundCategory ? foundCategory.category : Category.Rock;
+    private currentCategoryInTheBoard(): any {
+        const currentPosition = this.places[this.currentPlayer];
+        const foundCategory =  this.categoriesQuestionsInTheBoard.find((categoryForPositions) =>
+            categoryForPositions.positions.includes(currentPosition));
+        return foundCategory ? foundCategory : this.categoriesQuestionsInTheBoard[3];
     }
 
     private didPlayerNotWin(): boolean {
