@@ -5,6 +5,11 @@ enum Category {
     Science = 'Science',
     Pop = 'Pop'
 }
+interface CategoryQuestionsInTheBoard {
+    category: Category;
+    positions: Array<number>;
+    questions: Array<string>;
+}
 
 export class Game {
 
@@ -99,7 +104,10 @@ export class Game {
     private playerCanExitPenaltyBox(roll: number) {
         return roll % 2 != 0;
     }
-    private categoriesQuestionsInTheBoard = [
+
+
+
+    private categoriesQuestionsInTheBoard: Array<CategoryQuestionsInTheBoard> = [
         {category: Category.Pop, positions: [0, 4, 8], questions: this.popQuestions},
         {category: Category.Science, positions: [1, 5, 9], questions: this.scienceQuestions},
         {category: Category.Sports, positions: [2, 6, 10], questions: this.sportsQuestions},
@@ -114,7 +122,7 @@ export class Game {
         return this.currentCategoryInTheBoard().category;
     }
 
-    private currentCategoryInTheBoard(): any {
+    private currentCategoryInTheBoard(): CategoryQuestionsInTheBoard {
         const currentPosition = this.places[this.currentPlayer];
         const foundCategory =  this.categoriesQuestionsInTheBoard.find((categoryForPositions) =>
             categoryForPositions.positions.includes(currentPosition));
