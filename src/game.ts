@@ -99,28 +99,23 @@ export class Game {
     private playerCanExitPenaltyBox(roll: number) {
         return roll % 2 != 0;
     }
-
-
+    private positionToCategory = [
+        {category: Category.Pop, positions: [0, 4, 8], questions: this.popQuestions},
+        {category: Category.Science, positions: [1, 5, 9], questions: this.scienceQuestions},
+        {category: Category.Sports, positions: [2, 6, 10], questions: this.sportsQuestions},
+        {category: Category.Rock, positions: [], questions: this.rockQuestions},
+    ];
     private boardShowsQuestion(): void {
-        if (this.currentCategory() == Category.Pop)
-            console.log(this.popQuestions.shift());
-        if (this.currentCategory() == Category.Science)
-            console.log(this.scienceQuestions.shift());
-        if (this.currentCategory() == Category.Sports)
-            console.log(this.sportsQuestions.shift());
-        if (this.currentCategory() == Category.Rock)
-            console.log(this.rockQuestions.shift());
+        const currentPosition = this.places[this.currentPlayer];
+        const foundPositionToCategory = this.positionToCategory.find((categoryForPositions) =>
+            categoryForPositions.positions.includes(currentPosition)
+        ) || this.positionToCategory[3];
+        console.log(foundPositionToCategory.questions.shift());
     }
 
     private currentCategory(): Category {
-        const positionToCategory = [
-            {category: Category.Pop, positions: [0, 4, 8]},
-            {category: Category.Science, positions: [1, 5, 9]},
-            {category: Category.Sports, positions: [2, 6, 10]}
-        ];
-
         const currentPosition = this.places[this.currentPlayer];
-        const foundCategory = positionToCategory.find((categoryForPositions) =>
+        const foundCategory = this.positionToCategory.find((categoryForPositions) =>
             categoryForPositions.positions.includes(currentPosition)
         );
 
