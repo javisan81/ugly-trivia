@@ -106,12 +106,12 @@ export class Game {
     }
 
 
-
+    private rockCategoryQuestion = {category: Category.Rock, positions: [], questions: this.rockQuestions};
     private categoriesQuestionsInTheBoard: Array<CategoryQuestionsInTheBoard> = [
         {category: Category.Pop, positions: [0, 4, 8], questions: this.popQuestions},
         {category: Category.Science, positions: [1, 5, 9], questions: this.scienceQuestions},
         {category: Category.Sports, positions: [2, 6, 10], questions: this.sportsQuestions},
-        {category: Category.Rock, positions: [], questions: this.rockQuestions},
+        this.rockCategoryQuestion,
     ];
 
     private boardShowsQuestion(): void {
@@ -126,7 +126,7 @@ export class Game {
         const currentPosition = this.places[this.currentPlayer];
         const foundCategory =  this.categoriesQuestionsInTheBoard.find((categoryForPositions) =>
             categoryForPositions.positions.includes(currentPosition));
-        return foundCategory ? foundCategory : this.categoriesQuestionsInTheBoard[3];
+        return foundCategory ? foundCategory : this.rockCategoryQuestion;
     }
 
     private didPlayerNotWin(): boolean {
