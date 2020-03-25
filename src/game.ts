@@ -11,6 +11,17 @@ interface CategoryQuestionsInTheBoard {
     questions: Array<string>;
 }
 
+class CategoryQuestionsInTheBoard2 implements CategoryQuestionsInTheBoard {
+    category: Category;
+    positions: Array<number>;
+    questions: Array<string>;
+    constructor(category: Category, positions: Array<number>, questions: Array<string>) {
+        this.category = category;
+        this.positions = positions;
+        this.questions = questions;
+    }
+}
+
 export class Game {
 
     private players: Array<string> = [];
@@ -122,7 +133,7 @@ export class Game {
         return this.currentCategoryInTheBoard().category;
     }
 
-    private currentCategoryInTheBoard(): CategoryQuestionsInTheBoard {
+    private currentCategoryInTheBoard(): CategoryQuestionsInTheBoard2 {
         const currentPosition = this.places[this.currentPlayer];
         const foundCategory =  this.categoriesQuestionsInTheBoard.find((categoryForPositions) =>
             categoryForPositions.positions.includes(currentPosition));
