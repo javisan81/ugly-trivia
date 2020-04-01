@@ -50,6 +50,7 @@ export class Game {
     private scienceQuestions: Array<string> = [];
     private sportsQuestions: Array<string> = [];
     private rockQuestions: Array<string> = [];
+    private x: X;
 
     constructor() {
 
@@ -59,6 +60,7 @@ export class Game {
             this.sportsQuestions.push('Sports Question ' + i);
             this.rockQuestions.push(this.createRockQuestion(i));
         }
+        this.x = new X(this.popQuestions,this.scienceQuestions, this.sportsQuestions, this.rockQuestions);
     }
 
     private createRockQuestion(index: number): string {
@@ -133,13 +135,6 @@ export class Game {
 
     private rockCategoryQuestion = {category: Category.Rock, positions: [], questions: this.rockQuestions};
 
-    private categoriesQuestionsInTheBoard: Array<CategoryQuestionsInTheBoard> = [
-        {category: Category.Pop, positions: [0, 4, 8], questions: this.popQuestions},
-        {category: Category.Science, positions: [1, 5, 9], questions: this.scienceQuestions},
-        {category: Category.Sports, positions: [2, 6, 10], questions: this.sportsQuestions},
-        this.rockCategoryQuestion,
-    ];
-
     private boardShowsQuestion(): void {
         console.log(this.currentCategoryInTheBoard().questions.shift());
     }
@@ -150,7 +145,7 @@ export class Game {
 
     private currentCategoryInTheBoard(): CategoryQuestionsInTheBoard2 {
         const currentPosition = this.places[this.currentPlayer];
-        const foundCategory =  this.categoriesQuestionsInTheBoard.find((categoryForPositions) =>
+        const foundCategory =  this.x.categoriesQuestionsInTheBoard.find((categoryForPositions) =>
             categoryForPositions.positions.includes(currentPosition));
         return foundCategory ? foundCategory : this.rockCategoryQuestion;
     }
