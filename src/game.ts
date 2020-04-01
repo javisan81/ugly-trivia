@@ -22,6 +22,21 @@ class CategoryQuestionsInTheBoard2 implements CategoryQuestionsInTheBoard {
     }
 }
 
+class X {
+    constructor(private popQuestions: Array<string>, private scienceQuestions: Array<string>,
+                private sportsQuestions: Array<string>, private rockQuestions: Array<string>) {}
+
+    private rockCategoryQuestion = {category: Category.Rock, positions: [], questions: this.rockQuestions};
+
+    categoriesQuestionsInTheBoard: Array<CategoryQuestionsInTheBoard> = [
+        {category: Category.Pop, positions: [0, 4, 8], questions: this.popQuestions},
+        {category: Category.Science, positions: [1, 5, 9], questions: this.scienceQuestions},
+        {category: Category.Sports, positions: [2, 6, 10], questions: this.sportsQuestions},
+        this.rockCategoryQuestion,
+    ];
+}
+
+
 export class Game {
 
     private players: Array<string> = [];
@@ -116,8 +131,8 @@ export class Game {
         return roll % 2 != 0;
     }
 
-
     private rockCategoryQuestion = {category: Category.Rock, positions: [], questions: this.rockQuestions};
+
     private categoriesQuestionsInTheBoard: Array<CategoryQuestionsInTheBoard> = [
         {category: Category.Pop, positions: [0, 4, 8], questions: this.popQuestions},
         {category: Category.Science, positions: [1, 5, 9], questions: this.scienceQuestions},
