@@ -23,19 +23,38 @@ class CategoryQuestionsInTheBoard2 implements CategoryQuestionsInTheBoard {
 }
 
 class X {
-    constructor(private popQuestions: Array<string>, private scienceQuestions: Array<string>,
-                private sportsQuestions: Array<string>, private rockQuestions: Array<string>) {}
+    private popQuestions: Array<string> = [];
+    private scienceQuestions: Array<string> = [];
+    private sportsQuestions: Array<string> = [];
+    private rockQuestions: Array<string> = [];
+
+    constructor() {
+        this.initializeQuestions();
+    }
+
+    private initializeQuestions() {
+        for (let i = 0; i < 50; i++) {
+            this.popQuestions.push('Pop Question ' + i);
+            this.scienceQuestions.push('Science Question ' + i);
+            this.sportsQuestions.push('Sports Question ' + i);
+            this.rockQuestions.push(this.createRockQuestion(i));
+        }
+    }
+
+    private createRockQuestion(index: number): string {
+        return 'Rock Question ' + index;
+    }
 
     private rockCategoryQuestion = {category: Category.Rock, positions: [], questions: this.rockQuestions};
 
-    categoriesQuestionsInTheBoard: Array<CategoryQuestionsInTheBoard> = [
+    private categoriesQuestionsInTheBoard: Array<CategoryQuestionsInTheBoard> = [
         {category: Category.Pop, positions: [0, 4, 8], questions: this.popQuestions},
         {category: Category.Science, positions: [1, 5, 9], questions: this.scienceQuestions},
         {category: Category.Sports, positions: [2, 6, 10], questions: this.sportsQuestions},
         this.rockCategoryQuestion,
     ];
 
-    public currentCategoryInTheBoard(currentPosition: number): CategoryQuestionsInTheBoard2 {
+    private currentCategoryInTheBoard(currentPosition: number): CategoryQuestionsInTheBoard2 {
         const foundCategory =  this.categoriesQuestionsInTheBoard.find((categoryForPositions) =>
             categoryForPositions.positions.includes(currentPosition));
         return foundCategory ? foundCategory : this.rockCategoryQuestion;
@@ -44,25 +63,17 @@ class X {
     public currentCategory(currentPosition: number): Category {
         return this.currentCategoryInTheBoard(currentPosition).category;
     }
+
+    public nextQuestion(currentPosition: number) {
+        return this.currentCategoryInTheBoard(currentPosition).questions.shift();
+    }
 }
 
 
 export class Game {
-    private popQuestions: Array<string> = [];
-    private scienceQuestions: Array<string> = [];
-    private sportsQuestions: Array<string> = [];
-    private rockQuestions: Array<string> = [];
 
     private boardShowsQuestion(): void {
-        console.log(this.x.currentCategoryInTheBoard(this.places[this.currentPlayer]).questions.shift());
-    }
-    private initializeQuestions() {
-        for (let i = 0; i < 50; i++) {
-            this.popQuestions.push('Pop Question ' + i);
-            this.scienceQuestions.push('Science Question ' + i);
-            this.sportsQuestions.push('Sports Question ' + i);
-            this.rockQuestions.push(this.createRockQuestion(i));
-        }
+        console.log(this.x.nextQuestion(this.places[this.currentPlayer]));
     }
 
     private players: Array<string> = [];
@@ -77,12 +88,7 @@ export class Game {
     private x: X;
 
     constructor() {
-        this.initializeQuestions();
-        this.x = new X(this.popQuestions,this.scienceQuestions, this.sportsQuestions, this.rockQuestions);
-    }
-
-    private createRockQuestion(index: number): string {
-        return 'Rock Question ' + index;
+        this.x = new X();
     }
 
     public add(name: string): boolean {
@@ -150,8 +156,6 @@ export class Game {
     private playerCanExitPenaltyBox(roll: number) {
         return roll % 2 != 0;
     }
-
-    private rockCategoryQuestion = {category: Category.Rock, positions: [], questions: this.rockQuestions};
 
     private didPlayerNotWin(): boolean {
         return !(this.purses[this.currentPlayer] == 6)
