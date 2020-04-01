@@ -40,6 +40,10 @@ class X {
             categoryForPositions.positions.includes(currentPosition));
         return foundCategory ? foundCategory : this.rockCategoryQuestion;
     }
+
+    public currentCategory(currentPosition: number): Category {
+        return this.currentCategoryInTheBoard(currentPosition).category;
+    }
 }
 
 
@@ -52,11 +56,6 @@ export class Game {
     private boardShowsQuestion(): void {
         console.log(this.x.currentCategoryInTheBoard(this.places[this.currentPlayer]).questions.shift());
     }
-
-    private currentCategory(): Category {
-        return this.x.currentCategoryInTheBoard(this.places[this.currentPlayer]).category;
-    }
-
     private initializeQuestions() {
         for (let i = 0; i < 50; i++) {
             this.popQuestions.push('Pop Question ' + i);
@@ -109,7 +108,7 @@ export class Game {
             this.playerTryToExitPenaltyBoxAndAskQuestion(rollDice);
         } else {
             this.playerMove(rollDice);
-            console.log('The category is ' + this.currentCategory());
+            console.log('The category is ' + this.x.currentCategory(this.places[this.currentPlayer]));
             this.boardShowsQuestion();
         }
     }
@@ -140,7 +139,7 @@ export class Game {
 
             console.log(this.players[this.currentPlayer] + ' is getting out of the penalty box');
             this.playerMove(roll);
-            console.log('The category is ' + this.currentCategory());
+            console.log('The category is ' + this.x.currentCategory(this.places[this.currentPlayer]));
             this.boardShowsQuestion();
         } else {
             console.log(this.players[this.currentPlayer] + ' is not getting out of the penalty box');
