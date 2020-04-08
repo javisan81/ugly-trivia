@@ -1,4 +1,4 @@
-import { StackOfQuestions } from './stack-of-questions';
+import {StackOfQuestions} from './stack-of-questions';
 
 export class Game {
     private players: Array<string> = [];
@@ -39,13 +39,13 @@ export class Game {
             this.playerTryToExitPenaltyBoxAndAskQuestion(rollDice);
         } else {
             this.playerMove(rollDice);
-            console.log('The category is ' + this.stackOfQuestions.currentCategory(this.places[this.currentPlayer]));
+            console.log('The category is ' + this.stackOfQuestions.getCategory(this.places[this.currentPlayer]));
             this.boardShowsQuestion();
         }
     }
 
     private boardShowsQuestion(): void {
-        console.log(this.stackOfQuestions.nextQuestion(this.places[this.currentPlayer]));
+        console.log(this.stackOfQuestions.drawQuestion(this.places[this.currentPlayer]));
     }
 
     private static rollDice(): number {
@@ -74,7 +74,7 @@ export class Game {
 
             console.log(this.players[this.currentPlayer] + ' is getting out of the penalty box');
             this.playerMove(roll);
-            console.log('The category is ' + this.stackOfQuestions.currentCategory(this.places[this.currentPlayer]));
+            console.log('The category is ' + this.stackOfQuestions.getCategory(this.places[this.currentPlayer]));
             this.boardShowsQuestion();
         } else {
             console.log(this.players[this.currentPlayer] + ' is not getting out of the penalty box');

@@ -6,17 +6,15 @@ enum Category {
 }
 interface CategoryQuestionsInTheBoard {
     category: Category;
-    positions: Array<number>;
     questions: Array<string>;
 }
 export class StackOfQuestions {
-    private rockQuestions: Array<string> = [];
 
     private categoriesQuestionsInTheBoard: Array<CategoryQuestionsInTheBoard> = [
-        {category: Category.Pop, positions: [0, 4, 8], questions: []},
-        {category: Category.Science, positions: [1, 5, 9], questions: []},
-        {category: Category.Sports, positions: [2, 6, 10], questions: []},
-        {category: Category.Rock, positions: [], questions: this.rockQuestions},
+        {category: Category.Pop, questions: []},
+        {category: Category.Science, questions: []},
+        {category: Category.Sports, questions: []},
+        {category: Category.Rock, questions: []},
     ];
 
     constructor() {
@@ -33,17 +31,15 @@ export class StackOfQuestions {
     }
 
 
-    private currentCategoryInTheBoard(currentPosition: number): CategoryQuestionsInTheBoard {
-        const foundCategory = this.categoriesQuestionsInTheBoard.find((categoryForPositions) =>
-            categoryForPositions.positions.includes(currentPosition));
-        return foundCategory ? foundCategory : this.categoriesQuestionsInTheBoard[3];
+    private categoryInTheBoard(position: number): CategoryQuestionsInTheBoard {
+        return this.categoriesQuestionsInTheBoard[position % 4];
     }
 
-    public currentCategory(currentPosition: number): Category {
-        return this.currentCategoryInTheBoard(currentPosition).category;
+    public getCategory(position: number): Category {
+        return this.categoryInTheBoard(position).category;
     }
 
-    public nextQuestion(currentPosition: number) {
-        return this.currentCategoryInTheBoard(currentPosition).questions.shift();
+    public drawQuestion(position: number) {
+        return this.categoryInTheBoard(position).questions.shift();
     }
 }
