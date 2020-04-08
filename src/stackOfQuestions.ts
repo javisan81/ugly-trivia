@@ -9,18 +9,6 @@ interface CategoryQuestionsInTheBoard {
     positions: Array<number>;
     questions: Array<string>;
 }
-
-class CategoryQuestionsInTheBoard2 implements CategoryQuestionsInTheBoard {
-    category: Category;
-    positions: Array<number>;
-    questions: Array<string>;
-    constructor(category: Category, positions: Array<number>, questions: Array<string>) {
-        this.category = category;
-        this.positions = positions;
-        this.questions = questions;
-    }
-}
-
 export class StackOfQuestions {
     private popQuestions: Array<string> = [];
     private scienceQuestions: Array<string> = [];
@@ -48,7 +36,7 @@ export class StackOfQuestions {
         this.rockCategoryQuestion,
     ];
 
-    private currentCategoryInTheBoard(currentPosition: number): CategoryQuestionsInTheBoard2 {
+    private currentCategoryInTheBoard(currentPosition: number): CategoryQuestionsInTheBoard {
         const foundCategory = this.categoriesQuestionsInTheBoard.find((categoryForPositions) =>
             categoryForPositions.positions.includes(currentPosition));
         return foundCategory ? foundCategory : this.rockCategoryQuestion;
