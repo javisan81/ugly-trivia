@@ -21,7 +21,7 @@ class CategoryQuestionsInTheBoard2 implements CategoryQuestionsInTheBoard {
     }
 }
 
-export class X {
+export class StackOfQuestions {
     private popQuestions: Array<string> = [];
     private scienceQuestions: Array<string> = [];
     private sportsQuestions: Array<string> = [];
