@@ -10,10 +10,14 @@ interface CategoryQuestionsInTheBoard {
     questions: Array<string>;
 }
 export class StackOfQuestions {
-    private popQuestions: Array<string> = [];
-    private scienceQuestions: Array<string> = [];
-    private sportsQuestions: Array<string> = [];
     private rockQuestions: Array<string> = [];
+
+    private categoriesQuestionsInTheBoard: Array<CategoryQuestionsInTheBoard> = [
+        {category: Category.Pop, positions: [0, 4, 8], questions: []},
+        {category: Category.Science, positions: [1, 5, 9], questions: []},
+        {category: Category.Sports, positions: [2, 6, 10], questions: []},
+        {category: Category.Rock, positions: [], questions: this.rockQuestions},
+    ];
 
     constructor() {
         this.initializeQuestions();
@@ -21,25 +25,18 @@ export class StackOfQuestions {
 
     private initializeQuestions() {
         for (let i = 0; i < 50; i++) {
-            this.popQuestions.push('Pop Question ' + i);
-            this.scienceQuestions.push('Science Question ' + i);
-            this.sportsQuestions.push('Sports Question ' + i);
-            this.rockQuestions.push('Rock Question ' + i);
+            this.categoriesQuestionsInTheBoard[0].questions.push('Pop Question ' + i);
+            this.categoriesQuestionsInTheBoard[1].questions.push('Science Question ' + i);
+            this.categoriesQuestionsInTheBoard[2].questions.push('Sports Question ' + i);
+            this.categoriesQuestionsInTheBoard[3].questions.push('Rock Question ' + i);
         }
     }
-    private rockCategoryQuestion = {category: Category.Rock, positions: [], questions: this.rockQuestions};
 
-    private categoriesQuestionsInTheBoard: Array<CategoryQuestionsInTheBoard> = [
-        {category: Category.Pop, positions: [0, 4, 8], questions: this.popQuestions},
-        {category: Category.Science, positions: [1, 5, 9], questions: this.scienceQuestions},
-        {category: Category.Sports, positions: [2, 6, 10], questions: this.sportsQuestions},
-        this.rockCategoryQuestion,
-    ];
 
     private currentCategoryInTheBoard(currentPosition: number): CategoryQuestionsInTheBoard {
         const foundCategory = this.categoriesQuestionsInTheBoard.find((categoryForPositions) =>
             categoryForPositions.positions.includes(currentPosition));
-        return foundCategory ? foundCategory : this.rockCategoryQuestion;
+        return foundCategory ? foundCategory : this.categoriesQuestionsInTheBoard[3];
     }
 
     public currentCategory(currentPosition: number): Category {
