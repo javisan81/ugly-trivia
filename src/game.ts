@@ -1,4 +1,4 @@
-import { StackOfQuestions } from './stackOfQuestions';
+import { StackOfQuestions } from './stack-of-questions';
 
 export class Game {
     private players: Array<string> = [];
